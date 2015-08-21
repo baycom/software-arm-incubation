@@ -17,6 +17,9 @@
 #include <sblib/serial.h>
 #include <sblib/mem_mapper.h>
 
+static const char APP_VERSION[] __attribute__((used)) = "8-fold Dimmer 0.0.1";
+
+
 // Hardware version. Must match the product_serial_number in the VD's table hw_product
 const HardwareVersion hardwareVersion[] =
 { {8, 0xADF0, { 0x00, 0x00, 0x40, 0x00, 0x00, 0x00 }}
@@ -40,7 +43,6 @@ void setup()
     serial.println("Online\n");
 
     memMapper.addRange(0xad00, 0xa00);
-
 
     bcu.setProgPin(PIO2_11);
     bcu.setProgPinInverted(false);
@@ -79,38 +81,5 @@ void loop()
     {
     	timeout.start(1000);
     	digitalWrite(PIN_INFO, !digitalRead(PIN_INFO));
-    }
-}
-
-void loop_test(void)
-{
-    static int i = -1;
-    if (i == -1)
-    {
-        pinMode(PIN_PWM, OUTPUT);
-        digitalWrite(PIN_PWM, 0);
-        for (i = 0; i < NO_OF_OUTPUTS; i++)
-        {
-            pinMode(outputPins[i], OUTPUT);
-            digitalWrite(outputPins[i], 0);
-#ifdef HAND_ACTUATION
-            pinMode(handPins[i], OUTPUT);
-            digitalWrite(handPins[i], 0);
-#endif // HAND
-        }
-        i = 0;
-    }
-    else if (i < (2 * NO_OF_OUTPUTS))
-    {
-        if (timeout.expired ())
-        {
-            unsigned int n = i >> 1;
-            timeout.start  (500);
-            digitalWrite (outputPins[n], !(i & 0x01));
-#ifdef HAND_ACTUATION
-            digitalWrite (handPins[n], !(i & 0x01));
-#endif // HAND
-            i++;
-        }
     }
 }

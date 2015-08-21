@@ -17,6 +17,9 @@
 #include <sblib/serial.h>
 #include <sblib/mem_mapper.h>
 
+static const char APP_VERSION[] __attribute__((used)) = "8-fold Dimmer 0.0.1";
+
+
 // Hardware version. Must match the product_serial_number in the VD's table hw_product
 const HardwareVersion hardwareVersion[] =
 { {8, 0xADF0, { 0x00, 0x00, 0x40, 0x00, 0x00, 0x00 }}
@@ -40,7 +43,6 @@ void setup()
     serial.println("Online\n");
 
     memMapper.addRange(0xad00, 0xa00);
-
 
     bcu.setProgPin(PIO2_11);
     bcu.setProgPinInverted(false);

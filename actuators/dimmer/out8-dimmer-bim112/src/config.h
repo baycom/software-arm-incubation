@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2015 Martin Glueck <martin@mangari.org>
+ *                     Deti Fliegl <deti@fliegl.de>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 3 as
@@ -16,6 +17,7 @@ typedef struct
     unsigned int noOfChannels;  //!> how many channels are supported with this hardware
     unsigned short baseAddress; //!> Base address of the config parameters
     byte hardwareVersion[6];    //!> The hardware identification number
+    const char *version;
 } HardwareVersion;
 
 extern const HardwareVersion * currentVersion;

@@ -1,56 +1,18 @@
 
-#ifndef ROL_JAL_BIM112_SRC_CHANNEL_H_
-#define ROL_JAL_BIM112_SRC_CHANNEL_H_
+#ifndef OUT8_DIMMER_BIM112_SRC_CHANNEL_H_
+#define OUT8_DIMMER_BIM112_SRC_CHANNEL_H_
 
 #include <sblib/types.h>
 #include <sblib/timeout.h>
 
-#define NO_OF_CHANNELS 4
+#define NO_OF_CHANNELS 8
 #define NO_OF_OUTPUTS  (NO_OF_CHANNELS * 2)
-#define NO_OF_AUTOMATIC 4
-#define NO_OF_SCENES    8
-#define NO_OF_ALARMS    4
 
 extern const int outputPins[NO_OF_OUTPUTS];
 extern Timeout PWMDisabled;
 #define PWM_TIMEOUT 50
 #define PWM_PERIOD     857
 #define PWM_DUTY_33    (588)
-
-#define EE_CHANNEL_CFG_SIZE    72
-#define EE_ALARM_HEADER_SIZE   10
-#define EE_ALARM_CFG_SIZE       8
-
-#define FEATURE_AUTOMATIC_A       0x0001
-#define FEATURE_AUTOMATIC_B       0x0002
-#define FEATURE_CENTRAL           0x0004
-#define FEATURE_REFERENCE         0x0008
-#define FEATURE_STATUS            0x0010
-#define FEATURE_LIMIT             0x0020
-#define FEATURE_ALARM             0x0040
-#define FEATURE_BLOCK             0x0080
-#define FEATURE_SCENE             0x0100
-#define FEATURE_STORE_SCENE       0x0200
-#define FEATURE_SHORT_OPERATION   0x0400
-#define FEATURE_STATUS_MOVING     0x0800
-#define FEATURE_RESTORE_AFTER_REF 0x1000
-
-#define LOCK_POS_UP_DOWN         0x01
-#define LOCK_POS_RELEASE_UP      0x02
-#define LOCK_SCENE               0x08
-#define LOCK_AUTOMATIC           0x10
-#define LOCK_ABS_POSITION        0x20
-#define LOCK_UP_DOWN             0x40
-#define LOCK_HAND                0x80
-
-typedef struct
-{
-    unsigned char priority;
-    unsigned char monitorTime;
-    unsigned char engageAction;
-    unsigned char releaseAction;
-    Timeout       monitor;
-} AlarmConfig;
 
 class Channel
 {
@@ -203,4 +165,4 @@ inline bool Channel::_stillInAutoPosition(void)
     return position == autoPosition;
 }
 
-#endif /* ROL_JAL_BIM112_SRC_CHANNEL_H_ */
+#endif /* OUT8_DIMMERL_BIM112_SRC_CHANNEL_H_ */

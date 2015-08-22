@@ -1,8 +1,7 @@
 /*
- *  app-rol-jal.cpp - The application for the 4 channel blinds/shutter actuator
- *  acting as a Jung 2204REGH
+ *  app-out8-dimmer.cpp - An application ABB SD/S 8.16.1 8fold dimmer
  *
- *  Copyright (C) 2015 Martin Glueck <martin@mangari.org>
+ *  Copyright (C) 2015 Deti Fliegl <deti@fliegl.de>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 3 as

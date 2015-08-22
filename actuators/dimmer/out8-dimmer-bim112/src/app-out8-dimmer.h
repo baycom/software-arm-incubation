@@ -1,10 +1,9 @@
-#ifndef ROL_JAL_BIM112_SRC_APP_ROL_JAL_H_
-#define ROL_JAL_BIM112_SRC_APP_ROL_JAL_H_
+#ifndef OUT8_DIMMER_BIM112_SRC_APP_OUT8-DIMMER_H_
+#define OUT8_DIMMER_BIM112_SRC_APP_OUT8-DIMMER_H_
 /*
- *  app-rol-jal.cpp - The application for the 4 channel blinds/shutter actuator
- *  acting as a Jung 2204REGH
+ *  app-rol-jal.cpp - An application ABB SD/S 8.16.1 8fold dimmer
  *
- *  Copyright (C) 2015 Martin Glueck <martin@mangari.org>
+ *  Copyright (C) 2015 Deti Fliegl <deti@fliegl.de>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 3 as
@@ -32,4 +31,4 @@ void checkPeriodicFuntions(void);
 void initApplication(void);
 
 
-#endif /* ROL_JAL_BIM112_SRC_APP_ROL_JAL_H_ */
+#endif /* OUT8_DIMMER_BIM112_SRC_APP_OUT8-DIMMER_H_ */

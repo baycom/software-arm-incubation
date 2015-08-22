@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2015 Martin Glueck <martin@mangari.org>
+ *  Copyright (c) 2015 Deti Fliegl <deti@fliegl.de>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 3 as

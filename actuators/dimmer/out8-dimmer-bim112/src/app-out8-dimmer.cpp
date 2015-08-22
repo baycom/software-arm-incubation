@@ -58,11 +58,11 @@ void checkPeriodicFuntions(void)
             chn->periodic();
     }
 
-    if (PWMDisabled.started () && PWMDisabled.expired())
-    {
-        // re-enable the PWM
-        timer16_0.match(MAT2, PWM_DUTY_33);
-    }
+//    if (PWMDisabled.started () && PWMDisabled.expired())
+//    {
+//        // re-enable the PWM
+//        timer16_0.match(MAT2, PWM_DUTY_33);
+//    }
 }
 
 void initApplication(void)
@@ -75,8 +75,9 @@ void initApplication(void)
 
     timer16_0.prescaler((SystemCoreClock / 100000) - 1);
     timer16_0.matchMode(MAT2, SET);  // set the output of PIO3_2 to 1 when the timer matches MAT1
-    timer16_0.match(MAT2, PWM_PERIOD);        // match MAT1 when the timer reaches this value
+//    timer16_0.match(MAT2, PWM_PERIOD);        // match MAT1 when the timer reaches this value
     timer16_0.pwmEnable(MAT2);       // enable PWM for match channel MAT1
+    timer16_0.match(MAT2, PWM_DUTY_33);
     for (unsigned int i = 0; i < NO_OF_OUTPUTS; i++)
     {
         digitalWrite(outputPins[i], 0);

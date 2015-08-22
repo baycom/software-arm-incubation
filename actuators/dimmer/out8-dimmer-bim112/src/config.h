@@ -12,6 +12,27 @@
 
 #include <sblib/types.h>
 
+/* usable pins of io16 hardware
+
+timer16_0:
+MR0 PIO0_8 (SPI_MISO*)
+MR1 PIO0_9 (SPI_MOSI),
+MR2 PIO3_2 (IOC3*, PWM).
+
+timer32_0:
+MR0 PIO1_6 (IOC1*) or PIO2_5 (IOA0),
+MR1 PIO1_7 (IOC0*, XIO4) or PIO2_6 (IOD2),
+MR2 PIO0_1 (XIO08) or PIO2_7 (IOD1, XIO7),
+MR3 PIO0_11 (XIO23) or PIO2_8 (IOD0*, XIO10).
+
+timer32_1:
+MR0 PIO1_1 (IOB3*),
+MR1 PIO1_2 (IOB2*),
+MR2 PIO1_3 (SWDIO), <- no
+MR3 PIO1_4 (IOB1*).
+
+*/
+
 typedef struct
 {
     unsigned int noOfChannels;  //!> how many channels are supported with this hardware

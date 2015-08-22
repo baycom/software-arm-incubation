@@ -54,8 +54,8 @@ void setup()
     bcu.setMemMapper(&memMapper);
     memcpy(userEeprom.order, currentVersion->hardwareVersion, sizeof(currentVersion->hardwareVersion));
 
-    pinMode(PIN_INFO, OUTPUT);	// Info LED
-    pinMode(PIN_RUN,  OUTPUT);	// Run LED
+//    pinMode(PIN_INFO, OUTPUT);	// Info LED
+//    pinMode(PIN_RUN,  OUTPUT);	// Run LED
     initApplication();
 	timeout.start(1);
 }
@@ -80,6 +80,6 @@ void loop()
     if (timeout.started() && timeout.expired())
     {
     	timeout.start(1000);
-    	digitalWrite(PIN_INFO, !digitalRead(PIN_INFO));
+//    	digitalWrite(PIN_INFO, !digitalRead(PIN_INFO));
     }
 }

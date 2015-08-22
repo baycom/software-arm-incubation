@@ -1,7 +1,7 @@
-#ifndef OUT8_DIMMER_BIM112_SRC_APP_OUT8-DIMMER_H_
-#define OUT8_DIMMER_BIM112_SRC_APP_OUT8-DIMMER_H_
+#ifndef OUT8_DIMMER_BIM112_SRC_APP_OUT8_DIMMER_H_
+#define OUT8_DIMMER_BIM112_SRC_APP_OUT8_DIMMER_H_
 /*
- *  app-rol-jal.cpp - An application ABB SD/S 8.16.1 8fold dimmer
+ *  app-out8-dimmer.cpp - An application ABB SD/S 8.16.1 8fold dimmer
  *
  *  Copyright (C) 2015 Deti Fliegl <deti@fliegl.de>
  *

@@ -16,13 +16,14 @@
 #include <string.h>
 #include <sblib/serial.h>
 #include <sblib/mem_mapper.h>
+#include <sblib/eib/com_objects.h>
 
 static const char APP_VERSION[] __attribute__((used)) = "8-fold Dimmer 0.0.1";
 
 
 // Hardware version. Must match the product_serial_number in the VD's table hw_product
 const HardwareVersion hardwareVersion[] =
-{ {8, 0xADF0, { 0x00, 0x00, 0x40, 0x00, 0x00, 0x00 }}
+{ {NO_OF_CHANNELS, EE_GLOBAL_CFG, { 0x00, 0x00, 0x40, 0x00, 0x00, 0x00 }, APP_VERSION}
 };
 
 const HardwareVersion * currentVersion;
@@ -37,13 +38,16 @@ MemMapper memMapper(0xe000, 0xa00, false);
 
 void setup()
 {
-    serial.setRxPin(PIO3_1);
+#ifdef SERIAL_DEBUG
+	serial.setRxPin(PIO3_1);
     serial.setTxPin(PIO3_0);
     serial.begin(115200);
     serial.println("Online\n");
-
-    memMapper.addRange(0xad00, 0xa00);
-
+#endif
+    memMapper.addRange(0xad00, 0x900);
+    memMapper.setEndianess(LITTLE_ENDIAN);
+    bcu.setMemMapper(&memMapper);
+    objectEndian(LITTLE_ENDIAN);
     bcu.setProgPin(PIO2_11);
     bcu.setProgPinInverted(false);
     bcu.setRxPin(PIO1_8);
@@ -51,8 +55,9 @@ void setup()
 
     currentVersion = & hardwareVersion[0];
     bcu.begin(0x0002, 0xa045, 0x0012);
-    bcu.setMemMapper(&memMapper);
     memcpy(userEeprom.order, currentVersion->hardwareVersion, sizeof(currentVersion->hardwareVersion));
+    userEeprom.commsTabAddr = 0x4400;
+    userEeprom.modified();
 
 //    pinMode(PIN_INFO, OUTPUT);	// Info LED
 //    pinMode(PIN_RUN,  OUTPUT);	// Run LED

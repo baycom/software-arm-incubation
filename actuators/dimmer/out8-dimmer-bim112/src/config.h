@@ -12,7 +12,201 @@
 
 #include <sblib/types.h>
 
+#define NO_OF_CHANNELS 8
+#define EE_GLOBAL_CFG 0xADF0
+#define EE_CHANNEL_CFG_OFFSET 16
+#define EE_CHANNEL_CFG_SIZE   256
+
+typedef struct
+{
+    unsigned int noOfChannels;  //!> how many channels are supported with this hardware
+    unsigned short baseAddress; //!> Base address of the config parameters
+    byte hardwareVersion[6];    //!> The hardware identification number
+    const char *version;
+} HardwareVersion;
+
+extern const HardwareVersion * currentVersion;
+
+
+#define P_InitZeit 0x0000
+#define PD_TelegrUnbegr 0x0001
+#define P_TelegrUebZeit 0x0002
+#define P_InBetrieb 0x0004
+#define P_InBetriebValue_0 0x0005
+#define P_InBetriebZeit 0x0006
+#define SPI_SPEED 0x0008
+#define t_EinerFuerAlle 0x0009
+
+#define Anzahl_XY_Paare 0x0000
+#define X0 0x0001
+#define Y0 0x0002
+#define X1 0x0003
+#define Y1 0x0004
+#define X2 0x0005
+#define Y2 0x0006
+#define X3 0x0007
+#define Y3 0x0008
+#define P_Vorzugalage_KanalA 0x0009
+
+#define PD_RampeBitsHanbedienung 0x0020
+#define PD_rampenBitsSchalten 0x0021
+#define P_RB1 0x0022
+#define P_RB2 0x0023
+#define PD_RampeBitsZusatz 0x0024
+#define PD_RampeSpezial 0x0025
+
+#define P_RelDimmgrenzeUntere 0x0031
+#define P_RelDimmgrenzeObere 0x0032
+#define P_WertDimmgrenzeUntere 0x0033
+#define P_WertDimmgrenzeObere 0x0034
+
+#define P_Zusatzfunktion 0x0040
+#define P_EinschaltDimmrampe 0x0043
+
+#define P_AusschaltDimmrampe 0x0045
+
+#define P_relDimmenDimmzeit 0x0047
+
+#define P_WertDimmZeit 0x0049
+
+#define P_Rueckmeldung 0x0051
+#define P_RueckmInv 0x0052
+#define P_RueckmSenden 0x0053
+#define P_StatusWert 0x0054
+#define P_StatusSendenWert 0x0055
+
+#define P_VerhBW 0x0058
+
+#define P_PrioritaetFreigeben 0x005f
+#define P_VerhPrioritaet 0x0060
+#define P_Prior_BSW 0x0061
+
+#define P_Einschalthelligkeit 0x0066
+
+#define P_PresetfunktionFreigeben 0x006e
+#define P_SzenenPresetsUeberschr 0x006f
+#define P_Preset_2_FunktionEIN 0x0070
+#define P_Preset_1_FunktionAUS 0x0071
+
+#define P_Preset_12_Dimmrampe_dimmen 0x0073
+#define P_Preset_12_SpeichernInitialisieren 0x0075
+
+#define P_Preset_4_FunktionEIN 0x007b
+#define P_Preset_3_FunktionAUS 0x007c
+
+#define P_Preset_34_Dimmrampe_dimmen 0x007e
+#define P_Preset_34_SpeichernInitialisieren 0x0080
+
+#define P_SperrfunktionFreigeben 0x0086
+
+#define P_SzenenFreigeben 0x008c
+#define SzeneDownloadNichtUeberschreiben 0x008d
+#define SzeneBUSNichtUeberschreiben 0x008e
+#define P_SzeneFleALichtszene1 0x008f
+#define P_SzeneVoreinst1 0x0090
+#define P_SzeneUebergangszeit1 0x0091
+#define P_SzeneFleALichtszene2 0x0093
+#define P_SzeneVoreinst2 0x0094
+#define P_SzeneUebergangszeit2 0x0095
+#define P_SzeneFleALichtszene3 0x0097
+#define P_SzeneVoreinst3 0x0098
+#define P_SzeneUebergangszeit3 0x0099
+#define P_SzeneFleALichtszene4 0x009b
+#define P_SzeneVoreinst4 0x009c
+#define P_SzeneUebergangszeit4 0x009d
+#define P_SzeneFleALichtszene5 0x009f
+#define P_SzeneVoreinst5 0x00a0
+#define P_SzeneUebergangszeit5 0x00a1
+#define P_SzeneFleALichtszene6 0x00a3
+#define P_SzeneVoreinst6 0x00a4
+#define P_SzeneUebergangszeit6 0x00a5
+#define P_SzeneFleALichtszene7 0x00a7
+#define P_SzeneVoreinst7 0x00a8
+#define P_SzeneUebergangszeit7 0x00a9
+#define P_SzeneFleALichtszene8 0x00ab
+#define P_SzeneVoreinst8 0x00ac
+#define P_SzeneUebergangszeit8 0x00ad
+#define P_SzeneFleALichtszene9 0x00af
+#define P_SzeneVoreinst9 0x00b0
+#define P_SzeneUebergangszeit9 0x00b1
+#define P_SzeneFleALichtszene10 0x00b3
+#define P_SzeneVoreinst10 0x00b4
+#define P_SzeneUebergangszeit10 0x00b5
+#define P_SzeneFleALichtszene11 0x00b7
+#define P_SzeneVoreinst11 0x00b8
+#define P_SzeneUebergangszeit11 0x00b9
+#define P_SzeneFleALichtszene12 0x00bb
+#define P_SzeneVoreinst12 0x00bc
+#define P_SzeneUebergangszeit12 0x00bd
+#define P_SzeneFleALichtszene13 0x00bf
+#define P_SzeneVoreinst13 0x00c0
+#define P_SzeneUebergangszeit13 0x00c1
+#define P_SzeneFleALichtszene14 0x00c3
+#define P_SzeneVoreinst14 0x00c4
+#define P_SzeneUebergangszeit14 0x00c5
+#define P_SzeneFleALichtszene15 0x00c7
+#define P_SzeneVoreinst15 0x00c8
+#define P_SzeneUebergangszeit15 0x00c9
+#define P_SzeneFleALichtszene16 0x00cb
+#define P_SzeneVoreinst16 0x00cc
+#define P_SzeneUebergangszeit16 0x00cd
+#define P_SzeneFleALichtszene17 0x00cf
+#define P_SzeneVoreinst17 0x00d0
+#define P_SzeneUebergangszeit17 0x00d1
+#define P_SzeneFleALichtszene18 0x00d3
+#define P_SzeneVoreinst18 0x00d4
+#define P_SzeneUebergangszeit18 0x00d5
+
+#define P_SlaveVerhVSW 0x00e0
+#define P_TreppeHelligkeit 0x00e1
+#define P_SlaveVerhEinschalttelegr 0x00e1
+#define P_TreppeZeitdauer_3min 0x00e2
+#define P_SlaveVerhDimmen 0x00e2
+#define P_SlaveVerhPreset 0x00e3
+#define P_TreppeHelligkeitDauerEIN 0x00e4
+#define P_TreppeEndeDauerEIN 0x00e5
+#define P_TreppeAbdimmzeit 0x00e6
+#define P_TreppeWarnung 0x00e8
+#define P_TreppeVerhAusschalttelegramm 0x00e9
+#define P_TreppeZeitAddierbar 0x00ea
+
+#define P_TreppeHelligkeitNachAbdimmen 0x00ec
+
+#define COMObj_In_Operation   0
+#define COMObj_CH_Switch_Status 0
+#define COMOBj_CH_Status 1
+#define COMOBj_CH_Relative_Dimming 2
+#define COMOBj_CH_Brightness_Value 3
+#define COMOBj_CH_Status_Brightness_Value 4
+#define COMOBj_CH_Rel_Dimming_Speed 5
+#define COMOBj_CH_Forced_Operation 6
+#define COMOBj_CH_Call_Preset_1_And_2 7
+#define COMOBj_CH_Set_Preset_1_And_2 8
+#define COMOBj_CH_Call_Preset_3_And_4 9
+#define COMOBj_CH_Set_Preset_3_And_4 10
+#define COMOBj_CH_8_Bit_Scene 11
+#define COMOBj_CH_Restore_Standard_Scene 12
+#define COMOBj_CH_Block 13
+#define COMOBj_CH_Activate_Staircase_Function 14
+#define COMOBj_CH_Permanent_ON 15
+#define COMOBj_CH_Duration_Of_Staircase_Lighting 16
+#define COMOBj_CH_Warning_Staircase_Lighting 17
+#define COMOBj_CH_Statusbyte 24
+
 /* usable pins of io16 hardware
+
+8 x PWM out:
+PIO1_4 (IOB1*), timer32_1, MR3
+PIO1_2 (IOB2*), timer32_1, MR1
+PIO1_1 (IOB3*), timer32_1, MR0
+PIO1_7 (IOC0*), timer32_0, MR1
+PIO1_6 (IOC1*), timer32_0, MR0
+PIO3_2 (IOC3*), timer16_0, MR2
+PIO2_8 (IOD0*), timer32_0, MR3
+PIO0_8 (SPI_MISO*), timer16_0, MR0
+PIO0_9 (SPI_MOSI), timer16_0, MR1
+
+Timmer / Matcher allocation:
 
 timer16_0:
 MR0 PIO0_8 (SPI_MISO*)
@@ -31,19 +225,18 @@ MR1 PIO1_2 (IOB2*),
 MR2 PIO1_3 (SWDIO), <- no
 MR3 PIO1_4 (IOB1*).
 
-*/
+8 x Switch out:
 
-typedef struct
-{
-    unsigned int noOfChannels;  //!> how many channels are supported with this hardware
-    unsigned short baseAddress; //!> Base address of the config parameters
-    byte hardwareVersion[6];    //!> The hardware identification number
-    const char *version;
-} HardwareVersion;
+PIO2_5 (IOA0*)
+PIO3_5 (IOA1*)
+PIO0_7 (IOA2*)
+PIO2_9 (IOA3*)
+PIO1_11 (IOB0*)
+PIO1_5 (IOC2*)
+PIO2_7 (IOD1*)
+PIO2_6 (IOD2*)
+PIO3_3 (IOD3)
 
-extern const HardwareVersion * currentVersion;
-
-/*
  Paramters global start: 27120 / 0x69F0 + 0x4400 = 0xADF0
 
  27120/0x0000: P_InitZeit
@@ -101,9 +294,9 @@ extern const HardwareVersion * currentVersion;
  ...
  27217/0x0051: P_Rueckmeldung
  27218/0x0052: P_RueckmInv
- 27219/0x0053: P_RueckmSenden
+ 27219/0x0053: P_StatusSendenSchalten
  27220/0x0054: P_StatusWert
- 27221/0x0055: P_RueckmSenden
+ 27221/0x0055: P_StatusSendenWert
  ...
  27224/0x0058: P_VerhBW
  ...
@@ -230,6 +423,5 @@ extern const HardwareVersion * currentVersion;
  	 59:...
 
 */
-
 
 #endif /* CONFIG_H_ */

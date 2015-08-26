@@ -13,6 +13,7 @@
 #include "channel.h"
 
 extern Channel * channels[NO_OF_CHANNELS];
+extern MemMapper memMapper;
 
 /**
  * Called from the main loop whenever a com object has been updated
@@ -29,6 +30,9 @@ void checkPeriodicFuntions(void);
  * Called during the initialization of the application
  */
 void initApplication(void);
+
+int switchChannel(int channel, int value);
+int setChannelPWMRatio(int channel, int pwmScale);
 
 
 #endif /* OUT8_DIMMER_BIM112_SRC_APP_OUT8-DIMMER_H_ */
